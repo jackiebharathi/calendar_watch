@@ -1,0 +1,28 @@
+name: Tiruchendur Lodge Calendar Watch
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # every 30 minutes (UTC)
+  workflow_dispatch:         # allow manual run
+
+jobs:
+  calendar-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run calendar test
+        run: npx playwright test calendar_watch.spec.ts
