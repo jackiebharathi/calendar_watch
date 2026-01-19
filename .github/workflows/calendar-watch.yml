@@ -25,4 +25,4 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run calendar test
-        run: npx playwright test calendar_watch.spec.ts
+        run: npx playwright test
